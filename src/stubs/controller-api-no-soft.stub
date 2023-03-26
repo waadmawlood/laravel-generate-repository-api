@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\{{name}}\Store{{name}}Request;
+use App\Http\Requests\{{name}}\Update{{name}}Request;
+use App\Http\Requests\Pagination;
+use App\Http\Requests\Unlimit;
+use App\Models\{{name}};
+use App\Repositories\{{name}}Repository;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
+use Spatie\QueryBuilder\Concerns\SortsQuery;
+
+class {{name}}Controller extends Controller
+{
+    /**
+     * {{name}}Repository
+     * @var {{name}}Repository
+     */
+    private ${{name}}Repository;
+
+    /**
+     * {{name}}Controller::__construct
+     *
+     * @param {{name}}Repository ${{name_snake}}Repository
+     */
+    public function __construct({{name}}Repository ${{name_snake}}Repository)
+    {
+        {{policy}}
+        $this->{{name}}Repository = ${{name_snake}}Repository;
+    }
+
+    /**
+     * Get List
+     *
+     * @param Pagination|Unlimit $pagination use `Pagination Or Unlimit`
+     * @return EloquentBuilder|QueryBuilder|SpatieQueryBuilder|SortsQuery|mixed
+     */
+    public function index(Pagination $pagination)
+    {
+        return $this->{{name}}Repository->index($pagination);
+    }
+
+    /**
+     * Store
+     *
+     * @param  \App\Http\Requests\{{name}}\Store{{name}}Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Store{{name}}Request $request)
+    {
+        return $this->{{name}}Repository->store($request->validated());
+    }
+
+    /**
+     * Show
+     *
+     * @param  \App\Models\{{name}}  ${{name_snake}}
+     * @return \Illuminate\Support\Collection|array|null
+     */
+    public function show({{name}} ${{name_snake}})
+    {
+        return $this->{{name}}Repository->show(${{name_snake}});
+    }
+
+    /**
+     * Update
+     *
+     * @param  \App\Http\Requests\{{name}}\Update{{name}}Request  $request
+     * @param  \App\Models\{{name}}  ${{name_snake}}
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Update{{name}}Request $request, {{name}} ${{name_snake}})
+    {
+        return $this->{{name}}Repository->update($request->validated(), ${{name_snake}});
+    }
+
+    /**
+     * Delete
+     *
+     * @param  \App\Models\{{name}}  ${{name_snake}}
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy({{name}} ${{name_snake}})
+    {
+        return $this->{{name}}Repository->destroy(${{name_snake}});
+    }
+}

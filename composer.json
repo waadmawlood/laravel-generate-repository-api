@@ -1,0 +1,56 @@
+{
+    "name": "waad/laravel-generate-repository-api",
+    "description": "package to generate repository design pattern with all accessories",
+    "keywords": [
+        "Waad Mawlood",
+        "repository",
+        "laravel",
+        "design pattetn",
+        "laravel-php",
+        "repo",
+        "api",
+        "package",
+        "permission",
+        "DTO",
+        "models",
+        "polices",
+        "properties",
+        "accessor",
+        "mutator",
+        "validations"
+    ],
+    "homepage": "https://github.com/waadmawlood/laravel-generate-repository-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Waad Mawlood",
+            "email": "waad_mawlood@outlook.com",
+            "homepage": "https://waad.netlify.app",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "nicolaslopezj/searchable": "^1.13",
+        "spatie/laravel-permission": "^5.7",
+        "spatie/data-transfer-object": "^3.9",
+        "spatie/laravel-query-builder": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Waad\\Repository\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Waad\\Repository\\RepositoryServiceProvider"
+            ]
+        }
+    }
+}

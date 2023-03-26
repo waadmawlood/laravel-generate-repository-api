@@ -1,0 +1,101 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\{{name}};
+use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class {{name}}Policy
+{
+    use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAny(User $user)
+    {
+        return $user->hasAnyRolePermissions(['{{name_snake}}_list'], '{{guard}}');
+        // return true;
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\{{name}}  ${{name_snake}}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function view(User $user, {{name}} ${{name_snake}})
+    {
+        return $user->hasAnyRolePermissions(['{{name_snake}}_show'], '{{guard}}');
+        // return {{name_snake}}->user_id == $user->id;
+    }
+
+    /**
+     * Determine whether the user can create models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function create(User $user)
+    {
+        return $user->hasAnyRolePermissions(['{{name_snake}}_create'], '{{guard}}');
+        // return true;
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\{{name}}  ${{name_snake}}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function update(User $user, {{name}} ${{name_snake}})
+    {
+        return $user->hasAnyRolePermissions(['{{name_snake}}_update'], '{{guard}}');
+        // return {{name_snake}}->user_id == $user->id;
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\{{name}}  ${{name_snake}}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function delete(User $user, {{name}} ${{name_snake}})
+    {
+        return $user->hasAnyRolePermissions(['{{name_snake}}_delete'], '{{guard}}');
+        // return {{name_snake}}->user_id == $user->id;
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\{{name}}  ${{name_snake}}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, {{name}} ${{name_snake}})
+    {
+        return $user->hasAnyRolePermissions(['{{name_snake}}_restore'], '{{guard}}');
+        // return {{name_snake}}->user_id == $user->id;
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\{{name}}  ${{name_snake}}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function forceDelete(User $user, {{name}} ${{name_snake}})
+    {
+        return $user->hasAnyRolePermissions(['{{name_snake}}_forcedelete'], '{{guard}}');
+        // return {{name_snake}}->user_id == $user->id;
+    }
+}

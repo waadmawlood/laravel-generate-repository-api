@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Properties\{{name}};
+
+trait {{name}}Mutatorable
+{
+    /** +-----------+------------+------------+------------+ **/
+    /**      Mutator     Function     Set      Values        **/
+    /** +-----------+------------+------------+------------+ **/
+
+
+    // public function setFirstNameAttribute($value)
+    // {
+    //     $this->attributes['first_name'] = strtolower($value);
+    // }
+
+}
