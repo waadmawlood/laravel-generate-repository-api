@@ -30,11 +30,11 @@
         }
     ],
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.0",
         "nicolaslopezj/searchable": "^1.13",
-        "spatie/laravel-permission": "^5.10",
+        "spatie/laravel-permission": "^5.7",
         "spatie/data-transfer-object": "^3.9",
-        "spatie/laravel-query-builder": "^5.0"
+        "spatie/laravel-query-builder": "^4.0.4"
     },
     "autoload": {
         "psr-4": {
