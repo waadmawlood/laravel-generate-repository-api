@@ -528,6 +528,21 @@ public function index($request)
     return new PaginationDto($result, CarDto::class);
 }
 ```
+OR
+
+```js
+// in controller or repository
+
+use App\DTO\Car\CarDto;
+use Waad\Repository\DTO\DTO;
+
+public function index($request)
+{
+    $result = $this->indexObject($request)->paginate();
+
+    return DTO::pagiantion($result, CarDto::class);
+}
+```
 
 - List model use List DTO from package eg.
 
@@ -544,7 +559,20 @@ public function index($request)
     return new ListDto($result, CarDto::class);
 }
 ```
+OR
+```js
+// in controller or repository
 
+use App\DTO\Car\CarDto;
+use Waad\Repository\DTO\DTO;
+
+public function index($request)
+{
+    $result = $this->indexObject($request)->paginate();
+
+    return DTO::list($result, CarDto::class);
+}
+```
 
 
 
