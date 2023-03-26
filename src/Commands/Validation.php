@@ -252,7 +252,7 @@ class Validation extends Command
             $this->comment("    '$column->Field',");
         }
 
-        // Add created_at and updated_at inside DTO
+        // Add created_at and updated_at inside DTO.
         if($this->modelClass()->timestamps){
             $this->resultDto = array_merge($this->resultDto, ['created_at' => 'stringDto']);
             $this->resultDto = array_merge($this->resultDto, ['updated_at' => 'stringDto']);
