@@ -2,11 +2,19 @@
 
 namespace App\Properties\{{name}};
 
+use Waad\Repository\Traits\HasScopeable;
+
 trait {{name}}Scopable
 {
     /** +-----------+------------+------------+------------+ **/
     /**      Scope     Function     Query        Builde      **/
     /** +-----------+------------+------------+------------+ **/
+
+
+    /**
+    * trait including scope except of select
+    */
+    use HasScopeable;
 
 
     // scope to return records created in today

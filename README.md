@@ -12,7 +12,7 @@ composer require waad/laravel-generate-repository-api
 ```
 
 ```bash
-php artisan vendor:publish --provider=Waad\Repository\RepositoryServiceProvider 
+php artisan vendor:publish --provider="Waad\Repository\RepositoryServiceProvider" 
 ```
 
 in `config/app.php`
@@ -394,12 +394,14 @@ class AuthServiceProvider extends ServiceProvider
 \
 &nbsp;
 
-- http://127.0.0.1:8000/api/cars?include=user.city,model,color&sort=-date_made
+- http://127.0.0.1:8000/api/cars?include=user.city,model,color&sort=-date_made&select=id,name,age&except=age,notes
 
 | &nbsp; Parameter &nbsp; |&nbsp; Cases &nbsp;|
-|------------------------|-------------------------------------|
-| *include*              | string seperator "," comma          |
-| *sort*                 | string with "-" DESC Order else ASC |
+|------------------------|-------------------------------------------|
+| *include*              | string seperator "," comma                |
+| *sort*                 | string with "-" DESC Order else ASC       |
+| *select*               | return only select columns from table     |
+| *except*               | return all columns of table exclude except|
 
 - http://127.0.0.1:8000/api/cars?include=user.city&filter[user.city.name]=baghdad
 => `user.city.name LIKE baghdad`

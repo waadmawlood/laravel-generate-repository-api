@@ -71,6 +71,16 @@ abstract class BaseRepository implements BaseInterface
             $this->result = $this->result->search($request->search, null, true, $strict);
         }
 
+        if ($request->filled('select')) {
+            $attributes = explode(',', str_replace(' ', '', $request->select));
+            $this->result = $this->result->select($attributes);
+        }
+
+        if ($request->filled('except')) {
+            $attributes = explode(',', str_replace(' ', '', $request->except));
+            $this->result = $this->result->except($attributes);
+        }
+
         if (filled($where)) {
             $where = Arr::wrap($request->where);
             foreach ($where as $condition) {
@@ -133,6 +143,16 @@ abstract class BaseRepository implements BaseInterface
         }
 
         $primaryKey =  $object->getKeyName();
+
+        if (request()->filled('select')) {
+            $attributes = explode(',', str_replace(' ', '', request()->get('select')));
+            $result = $result->select($attributes);
+        }
+
+        if (request()->filled('except')) {
+            $attributes = explode(',', str_replace(' ', '', request()->get('except')));
+            $result = $result->except($attributes);
+        }
 
         return $result->find($object->$primaryKey);
     }

@@ -35,6 +35,8 @@ class Pagination extends FormRequest
             'search' => 'nullable|string|max:255',
             'strict' => 'nullable|boolean',
             'trash' => 'nullable|string|in:current,all,trashed,|max:8',
+            'select' => 'nullable|string|max:500',
+            'except' => 'nullable|string|max:500',
         ];
     }
 }

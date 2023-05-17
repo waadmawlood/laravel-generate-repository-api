@@ -2,8 +2,6 @@
 
 namespace Waad\Repository\Traits;
 
-use Waad\Repository\Helpers\ModelHelper;
-
 trait ConstructorableModel
 {
     public function __construct(array $attributes = [])
