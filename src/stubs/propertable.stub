@@ -48,9 +48,6 @@ trait {{name}}Propertable
 
     public $hidden_override = [{{'deleted_at'}}];
 
-    /** add any attribute date, timestamp to return date timezone */
-    public $dates_override = [];
-
 
     public $casts_override = [
         // 'status' => 'boolean',

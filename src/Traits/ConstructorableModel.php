@@ -16,10 +16,6 @@ trait ConstructorableModel
             unset($this->hidden_override);
         }
 
-        if(property_exists($this, 'dates_override')){
-            unset($this->dates_override);
-        }
-
         if(property_exists($this, 'casts_override')){
             unset($this->casts_override);
         }
@@ -73,10 +69,6 @@ trait ConstructorableModel
 
         if(property_exists($this, 'hidden_override')){
             $this->hidden = $this->hidden_override;
-        }
-
-        if(property_exists($this, 'dates_override')){
-            $this->dates = $this->dates_override;
         }
 
         if(property_exists($this, 'casts_override')){
