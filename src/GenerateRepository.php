@@ -56,7 +56,7 @@ class GenerateRepository extends Repository
             return 0;
 
         // conver model name to plural and lower latters
-        $table = strtolower(Str::plural($this->name));
+        $table = strtolower(Str::plural(Str::snake($this->name)));
 
         // initial to create (pagination, unlimit) Request
         $this->initial(self::PATH_request);
