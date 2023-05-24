@@ -146,7 +146,7 @@ class Repository extends Command
             return $this;
 
         $options = [
-            "{{name_plural}}" => Str::lower(Str::plural($name)),
+            "{{name_plural}}" => Str::of($name)->snake()->plural()->toString(),
             "{{'deleted_at'}}" => $is_soft_delete ? "'deleted_at'" : '',
             "{{name}}" => $name,
         ];
