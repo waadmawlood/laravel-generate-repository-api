@@ -8,6 +8,7 @@ use App\Properties\{{name}}\{{name}}Accessorable;
 use App\Properties\{{name}}\{{name}}Mutatorable;
 use App\Properties\{{name}}\{{name}}Relatable;
 {{use Illuminate\Database\Eloquent\SoftDeletes;}}
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class {{name}} extends Model
@@ -20,5 +21,6 @@ class {{name}} extends Model
     use {{name}}Mutatorable;
     use {{name}}Relatable;
 
+    use HasFactory;
 
 }
