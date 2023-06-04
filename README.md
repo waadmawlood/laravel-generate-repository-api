@@ -215,6 +215,21 @@ php artisan repo:validation NameModel --ndto       // generate StoreRequestForm 
 ```
 
 
+---
+
+&nbsp;
+
+### - Create permissions of model into database customs
+⚠️ use it if refresh database or drop permissions from database
+```php
+php artisan repo:permission Car    // get default guard
+````
+
+```php
+php artisan repo:permission Car --guard=api    // with guard
+````
+
+
 
 ---
 \

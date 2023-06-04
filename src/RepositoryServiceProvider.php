@@ -18,6 +18,7 @@ class RepositoryServiceProvider extends ServiceProvider
             $this->commands([
                 GenerateRepository::class,
                 GenerateValidation::class,
+                GeneratePermissions::class,
             ]);
         }
     }
