@@ -527,10 +527,19 @@ class Repository extends Command
         ];
 
         $result_permission = array();
-        foreach ($permissions as $permission) {
-            if (!$permissionModel->where('name', $permission)->where('guard_name', $this->guard)->exists()) {
-                Artisan::call("permission:create-permission '{$permission}' {$this->guard}");
-                $result_permission[] = $permission;
+        $guards = explode(',', trim($this->guard));
+
+        foreach ($guards as $guard) {
+            if (blank($guard))
+                continue;
+
+            $guard = trim($guard);
+
+            foreach ($permissions as $permission) {
+                if (!$permissionModel->where('name', $permission)->where('guard_name', $guard)->exists()) {
+                    Artisan::call("permission:create-permission '{$permission}' {$guard}");
+                    $result_permission[] = sprintf('%s (%s)', $permission, $guard);
+                }
             }
         }
 

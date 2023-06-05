@@ -172,7 +172,11 @@ php artisan repo:model NameModel --permission            // generating model, pr
 ``` 
 
 ```bash
-php artisan repo:model NameModel --permission --guard=agent            // generating model, properties, add permissions to database with agent guard
+php artisan repo:model NameModel --permission --guard=agent      // generating model, properties, add permissions to database with agent guard
+``` 
+
+```bash
+php artisan repo:model NameModel --permission --guard=agent,user      // generating model, properties, add permissions to database with multi guard
 ``` 
 
 ```bash
@@ -222,11 +226,19 @@ php artisan repo:validation NameModel --ndto       // generate StoreRequestForm 
 ### - Create permissions of model into database customs
 ⚠️ use it if refresh database or drop permissions from database
 ```php
-php artisan repo:permission Car    // get default guard
+php artisan repo:permission Car                     // get default guard
 ````
 
 ```php
-php artisan repo:permission Car --guard=api    // with guard
+php artisan repo:permission Car --guard=api            // with guard
+````
+
+```php
+php artisan repo:permission Car --guard=api,web       // with multi guard
+
+or
+
+php artisan repo:permission Car --guard="api, web"    // with multi guard
 ````
 
 
