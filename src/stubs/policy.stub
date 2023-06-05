@@ -18,7 +18,7 @@ class {{name}}Policy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRolePermissions(['{{name_snake}}_list'], '{{guard}}');
+        return $user->hasAnyRolePermissions(['{{name_snake}}_list'], [{{guard}}]);
         // return true;
     }
 
@@ -31,7 +31,7 @@ class {{name}}Policy
      */
     public function view(User $user, {{name}} ${{name_snake}})
     {
-        return $user->hasAnyRolePermissions(['{{name_snake}}_show'], '{{guard}}');
+        return $user->hasAnyRolePermissions(['{{name_snake}}_show'], [{{guard}}]);
         // return {{name_snake}}->user_id == $user->id;
     }
 
@@ -43,7 +43,7 @@ class {{name}}Policy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRolePermissions(['{{name_snake}}_create'], '{{guard}}');
+        return $user->hasAnyRolePermissions(['{{name_snake}}_create'], [{{guard}}]);
         // return true;
     }
 
@@ -56,7 +56,7 @@ class {{name}}Policy
      */
     public function update(User $user, {{name}} ${{name_snake}})
     {
-        return $user->hasAnyRolePermissions(['{{name_snake}}_update'], '{{guard}}');
+        return $user->hasAnyRolePermissions(['{{name_snake}}_update'], [{{guard}}]);
         // return {{name_snake}}->user_id == $user->id;
     }
 
@@ -69,7 +69,7 @@ class {{name}}Policy
      */
     public function delete(User $user, {{name}} ${{name_snake}})
     {
-        return $user->hasAnyRolePermissions(['{{name_snake}}_delete'], '{{guard}}');
+        return $user->hasAnyRolePermissions(['{{name_snake}}_delete'], [{{guard}}]);
         // return {{name_snake}}->user_id == $user->id;
     }
 
@@ -82,7 +82,7 @@ class {{name}}Policy
      */
     public function restore(User $user, {{name}} ${{name_snake}})
     {
-        return $user->hasAnyRolePermissions(['{{name_snake}}_restore'], '{{guard}}');
+        return $user->hasAnyRolePermissions(['{{name_snake}}_restore'], [{{guard}}]);
         // return {{name_snake}}->user_id == $user->id;
     }
 
@@ -95,7 +95,7 @@ class {{name}}Policy
      */
     public function forceDelete(User $user, {{name}} ${{name_snake}})
     {
-        return $user->hasAnyRolePermissions(['{{name_snake}}_forcedelete'], '{{guard}}');
+        return $user->hasAnyRolePermissions(['{{name_snake}}_forcedelete'], [{{guard}}]);
         // return {{name_snake}}->user_id == $user->id;
     }
 }

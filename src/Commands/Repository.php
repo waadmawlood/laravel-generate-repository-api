@@ -275,10 +275,12 @@ class Repository extends Command
         if (!$contents)
             return $this;
 
+        $guards = array_map('trim', explode(',', trim($this->guard)));
+
         $options = [
             "{{name}}" => $name,
             "{{name_snake}}" => Str::snake($name),
-            "{{guard}}" => $this->guard,
+            "{{guard}}" => sprintf("'%s'", implode("', '",$guards)),
         ];
 
         Path::replaceContents($contents, $options);
