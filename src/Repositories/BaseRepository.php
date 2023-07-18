@@ -6,6 +6,7 @@ use App\Http\Requests\Pagination;
 use App\Http\Requests\Unlimit;
 use Illuminate\Http\Request;
 use Waad\Repository\Helpers\Check;
+use Waad\Repository\Helpers\OrderBy;
 use Waad\Repository\Interfaces\BaseInterface;
 use Waad\Repository\Traits\FiltersApi;
 use Waad\Repository\Traits\HasProperty;
@@ -99,18 +100,13 @@ abstract class BaseRepository implements BaseInterface
             }
         }
 
-        if ($request->has('sort') && filled($request->sort)) {
-            $orders = explode(',', $request->sort);
-            foreach($orders as $order){
-                $order = trim($order);
-                $isDesc = Check::isDesc($order);
-                $key = $isDesc ? substr($order, 1) :  $order;
-                $direction = $isDesc ? 'DESC' : 'ASC';
+        if ($request->filled('sort')) {
+            $sortKeys = array_values(array_filter(array_map(fn($key) => trim($key), explode(',', trim($request->get('sort'))))));
+            $sortKeysClean = array_map(fn ($key) => trim(ltrim($key, '-')), $sortKeys);
 
-                Check::checkAllowedProperties($this->getPropertiesOfModel('sortable'), $key, $classname, 'sortable');
+            Check::checkAllowedProperties($this->getPropertiesOfModel('sortable'), $sortKeysClean, $classname, 'sortable');
 
-                $this->result = $this->result->orderBy($key, $direction);
-            }
+            $this->result = OrderBy::order($this->result, $sortKeys);
         }
 
         return $this->result;
