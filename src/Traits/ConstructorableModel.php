@@ -88,7 +88,7 @@ trait ConstructorableModel
         }
 
         if(property_exists($this, 'primary_override')){
-            $this->primary = $this->primary_override;
+            $this->primaryKey = $this->primary_override;
         }
 
         if(property_exists($this, 'timestamps_override')){
