@@ -52,9 +52,9 @@ abstract class BaseRepository implements BaseInterface
         $classname = class_basename($this->model);
 
         $this->result = SpatieQueryBuilder::for($this->model);
+        
         if($QueryBilderEnable){
-            $included = Check::checkAsIncluded($this->getPropertiesOfModel('includeable'));
-            $this->result = $this->result->allowedIncludes($included)
+            $this->result = $this->result->allowedIncludes($this->getPropertiesOfModel('includeable'))
                 ->allowedFilters($this->getPropertiesOfModel('filterable'));
         }
 
