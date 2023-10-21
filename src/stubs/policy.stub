@@ -31,7 +31,7 @@ class {{name}}Policy
      */
     public function view(User $user, {{name}} ${{name_snake}})
     {
-        return $user->hasAnyRolePermissions(['{{name_snake}}_show'], [{{guard}}]);
+        return $user->hasAnyRolePermissions(['{{name_snake}}_list'], [{{guard}}]);
         // return {{name_snake}}->user_id == $user->id;
     }
 

@@ -2,29 +2,22 @@
 
 namespace Waad\Repository\Interfaces;
 
-use App\Http\Requests\Pagination;
-use App\Http\Requests\Unlimit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
-use Spatie\QueryBuilder\Concerns\SortsQuery;
 
 interface BaseInterface
 {
-
     /**
      * indexObject
      *
-     * @param Request|Pagination|Unlimit $request
+     * @param Request $request
      * @param array|null $where
      * @param string|null $trash
      * @param bool|null $QueryBilderEnable
-     * @return EloquentBuilder|QueryBuilder|SpatieQueryBuilder|SortsQuery|mixed
+     * @return SpatieQueryBuilder
      */
-    public function indexObject(Request|Pagination|Unlimit $request, array|null $where, string|null $trash = null, bool|null $QueryBilderEnable = true);
+    public function indexObject(Request $request, array |null $where = null, string|null $trash = null, bool|null $QueryBilderEnable = true);
 
     /**
      * showObject
@@ -32,7 +25,7 @@ interface BaseInterface
      * @param Model|int|string $object
      * @param bool|null $trash
      * @param bool|null $enableQueryBuilder
-     * @return Collection|array|null
+     * @return Model|null
      */
     public function showObject(Model|int|string $object, bool|null $trash = false, bool|null $enableQueryBuilder = true);
 

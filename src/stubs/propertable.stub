@@ -105,7 +105,7 @@ trait {{name}}Propertable
             '{{name_plural}}.email' => 5,
         ],
         'joins' => [
-            'posts' => ['{{name_plural}}.id','posts.user_id'],
+            'users' => ['{{name_plural}}.user_id','users.id'],
         ],
     ];
 

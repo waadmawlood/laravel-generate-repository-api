@@ -2,16 +2,9 @@
 
 namespace App\Interfaces;
 
-use Waad\Repository\Interfaces\BaseInterface;
-use App\Http\Requests\Pagination;
-use App\Http\Requests\Unlimit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
-use Spatie\QueryBuilder\Concerns\SortsQuery;
+use Waad\Repository\Interfaces\BaseInterface;
 
 interface {{name}}Interface extends BaseInterface
 {
@@ -19,12 +12,12 @@ interface {{name}}Interface extends BaseInterface
     /**
      * index
      *
-     * @param Request|Pagination|Unlimit $request
+     * @param Request $request
      * @param string|null $trash
      * @param bool|null $QueryBilderEnable
-     * @return EloquentBuilder|QueryBuilder|SpatieQueryBuilder|SortsQuery|mixed
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\LengthAwarePaginator
      */
-    public function index(Request|Pagination|Unlimit $request, string|null $trash = null, bool|null $QueryBilderEnable = true);
+    public function index(Request $request, string|null $trash = null, bool|null $QueryBilderEnable = true);
 
     /**
      * show
@@ -32,7 +25,7 @@ interface {{name}}Interface extends BaseInterface
      * @param Model|int|string $object
      * @param bool|null $trash
      * @param bool|null $enableQueryBuilder
-     * @return Collection|array|null
+     * @return Model|null
      */
     public function show(Model|int|string $object, bool|null $trash = false, bool|null $enableQueryBuilder = true);
 

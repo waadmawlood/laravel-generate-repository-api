@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\{{name}}\Index{{name}}Request;
 use App\Http\Requests\{{name}}\Store{{name}}Request;
 use App\Http\Requests\{{name}}\Update{{name}}Request;
-use App\Http\Requests\Pagination;
-use App\Http\Requests\Unlimit;
 use App\Models\{{name}};
 use App\Repositories\{{name}}Repository;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
-use Spatie\QueryBuilder\Concerns\SortsQuery;
 
 class {{name}}Controller extends Controller
 {
@@ -35,12 +30,12 @@ class {{name}}Controller extends Controller
     /**
      * Get List
      *
-     * @param Pagination|Unlimit $pagination use `Pagination Or Unlimit`
-     * @return EloquentBuilder|QueryBuilder|SpatieQueryBuilder|SortsQuery|mixed
+     * @param Index{{name}}Request $request use `Pagination Or Unlimit`
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\View\View
      */
-    public function index(Pagination $pagination)
+    public function index(Index{{name}}Request $request)
     {
-        return $this->{{name}}Repository->index($pagination);
+        return $this->{{name}}Repository->index($request);
     }
 
     /**

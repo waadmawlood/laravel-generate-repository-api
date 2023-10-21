@@ -2,24 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Http\Requests\Pagination;
-use App\Http\Requests\Unlimit;
 use App\Interfaces\{{name}}Interface;
 use App\Models\{{name}};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
-use Spatie\QueryBuilder\Concerns\SortsQuery;
-use Waad\Repository\Repositories\BaseRepository;
 use Waad\Repository\Enums\ResponseStatus;
+use Waad\Repository\Repositories\BaseRepository;
 
 class {{name}}Repository extends BaseRepository implements {{name}}Interface
 {
-    protected $model;
-
     public function __construct()
     {
         $this->model = new {{name}}();
@@ -29,12 +20,12 @@ class {{name}}Repository extends BaseRepository implements {{name}}Interface
     /**
      * index
      *
-     * @param Request|Pagination|Unlimit $request
+     * @param Request $request
      * @param string|null $trash
      * @param bool|null $QueryBilderEnable
-     * @return EloquentBuilder|QueryBuilder|SpatieQueryBuilder|SortsQuery|mixed
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\LengthAwarePaginator
      */
-    public function index(Request|Pagination|Unlimit $request, string|null $trash = null, bool|null $QueryBilderEnable = true)
+    public function index(Request $request, string|null $trash = null, bool|null $QueryBilderEnable = true)
     {
         $where = array();
 
@@ -48,7 +39,7 @@ class {{name}}Repository extends BaseRepository implements {{name}}Interface
      * @param Model|int|string $object
      * @param bool|null $trash
      * @param bool|null $enableQueryBuilder
-     * @return Collection|array|null
+     * @return Model|null
      */
     public function show(Model|int|string $object, bool|null $trash = false, bool|null $enableQueryBuilder = true)
     {
@@ -86,6 +77,9 @@ class {{name}}Repository extends BaseRepository implements {{name}}Interface
     public function update(array $values, Model|int|string $object, bool|null $getObject = false)
     {
         $response = $this->updateObject($values, $object, $getObject);
+
+        if ($response === false)
+            return $this->jsonResponce(message: "There are some errors when updating", status: 400);
 
         return $this->jsonResponce(
             message: 'The {{name}} data has been Updated successfully',

@@ -100,6 +100,9 @@ class GenerateRepository extends Repository
             // update store model request
             $this->createRequest(self::PATH_request, $this->name, 'Update');
 
+            // index model request
+            $this->createRequest(self::PATH_request, $this->name, 'Index');
+
             // create controller
             $this->createController(self::PATH_controller_api, $this->name, $is_soft_delete, true);
 
@@ -134,6 +137,9 @@ class GenerateRepository extends Repository
 
             // update store model request
             $this->createRequest(self::PATH_request, $this->name, 'Update');
+
+            // index model request
+            $this->createRequest(self::PATH_request, $this->name, 'Index');
 
             // create repository
             $this->createRepository(self::PATH_repository, $this->name);

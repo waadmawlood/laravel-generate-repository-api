@@ -2,21 +2,16 @@
 
 namespace Waad\Repository\Repositories;
 
-use App\Http\Requests\Pagination;
-use App\Http\Requests\Unlimit;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
 use Waad\Repository\Helpers\Check;
 use Waad\Repository\Helpers\OrderBy;
 use Waad\Repository\Interfaces\BaseInterface;
 use Waad\Repository\Traits\FiltersApi;
 use Waad\Repository\Traits\HasProperty;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
-use Spatie\QueryBuilder\Concerns\SortsQuery;
 use Waad\Repository\Traits\Responsable;
 use Waad\Repository\Traits\SetWhereCondition;
 
@@ -33,7 +28,7 @@ abstract class BaseRepository implements BaseInterface
     protected $model;
 
     /**
-     * @var QueryBuilder
+     * @var SpatieQueryBuilder
      */
     public $result;
 
@@ -46,19 +41,20 @@ abstract class BaseRepository implements BaseInterface
     /**
      * indexObject
      *
-     * @param Request|Pagination|Unlimit $request
+     * @param Request $request
      * @param array|null $where
      * @param string|null $trash
      * @param bool|null $QueryBilderEnable
-     * @return EloquentBuilder|QueryBuilder|SpatieQueryBuilder|SortsQuery|mixed
+     * @return SpatieQueryBuilder
      */
-    public function indexObject(Request|Pagination|Unlimit $request, array|null $where = null, string|null $trash = null, bool|null $QueryBilderEnable = true)
+    public function indexObject(Request $request, array|null $where = null, string|null $trash = null, bool|null $QueryBilderEnable = true)
     {
         $classname = class_basename($this->model);
 
         $this->result = SpatieQueryBuilder::for($this->model);
         if($QueryBilderEnable){
-            $this->result = $this->result->allowedIncludes($this->getPropertiesOfModel('includeable'))
+            $included = Check::checkAsIncluded($this->getPropertiesOfModel('includeable'));
+            $this->result = $this->result->allowedIncludes($included)
                 ->allowedFilters($this->getPropertiesOfModel('filterable'));
         }
 
@@ -118,7 +114,7 @@ abstract class BaseRepository implements BaseInterface
      * @param Model|int|string $object
      * @param bool|null $trash
      * @param bool|null $enableQueryBuilder
-     * @return Collection|array|null
+     * @return Model|null
      */
     public function showObject(Model|int|string $object, bool|null $trash = false, bool|null $enableQueryBuilder = true)
     {
@@ -164,7 +160,6 @@ abstract class BaseRepository implements BaseInterface
     public function storeObject(array|Model|Collection $data, bool|null $is_object = true)
     {
         $this->checkNotArray($data);
-
         return $is_object ?
             $this->model->fill($data)->create($data) :
             $this->model->fill($data)->insertGetId($data);
@@ -181,7 +176,7 @@ abstract class BaseRepository implements BaseInterface
     public function updateObject(array|Model|Collection $data, Model|int|string $object, bool|null $getObject = false)
     {
         if (!$object)
-            return null;
+            return false;
 
         $this->checkNotArray($data);
 
@@ -192,7 +187,7 @@ abstract class BaseRepository implements BaseInterface
         }
 
         if (!$updated)
-            return null;
+            return false;
 
         if ($getObject)
             $updated = $this->showObject($object, trash: false, enableQueryBuilder: false);

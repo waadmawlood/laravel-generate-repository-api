@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\{{name}}\Index{{name}}Request;
 use App\Http\Requests\{{name}}\Store{{name}}Request;
 use App\Http\Requests\{{name}}\Update{{name}}Request;
-use App\Http\Requests\Pagination;
-use App\Http\Requests\Unlimit;
 use App\Models\{{name}};
 use App\Repositories\{{name}}Repository;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Spatie\QueryBuilder\QueryBuilder as SpatieQueryBuilder;
-use Spatie\QueryBuilder\Concerns\SortsQuery;
 
 class {{name}}Controller extends Controller
 {
@@ -36,12 +31,12 @@ class {{name}}Controller extends Controller
     /**
      * Get List
      *
-     * @param Pagination|Unlimit $pagination use `Pagination Or Unlimit`
-     * @return EloquentBuilder|QueryBuilder|SpatieQueryBuilder|SortsQuery|mixed
+     * @param Index{{name}}Request $request use `Pagination Or Unlimit`
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\LengthAwarePaginator
      */
-    public function index(Pagination $pagination)
+    public function index(Index{{name}}Request $request)
     {
-        return $this->{{name}}Repository->index($pagination);
+        return $this->{{name}}Repository->index($request);
     }
 
     /**
@@ -59,7 +54,7 @@ class {{name}}Controller extends Controller
      * Show
      *
      * @param  \App\Models\{{name}}  ${{name_snake}}
-     * @return \Illuminate\Support\Collection|array|null
+     * @return \App\Models\{{name}}|null
      */
     public function show({{name}} ${{name_snake}})
     {

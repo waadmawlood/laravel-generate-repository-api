@@ -41,21 +41,26 @@ class Repository extends Command
      */
     public function createMigration(string $table)
     {
-        if ($this->force) {
-            $files = scandir(Path::getPath(self::PATH_migrations));
+        $files = scandir(Path::getPath(self::PATH_migrations));
 
-            foreach ($files as $file) {
-                if (str_contains($file, "create_{$table}_table")) {
+        $exist = false;
+        foreach ($files as $file) {
+            if (str_contains($file, "create_{$table}_table")) {
+                if ($this->force)
                     unlink(Path::getPath(self::PATH_migrations . "/{$file}"));
-                }
+
+                $exist = true;
+                break;
             }
         }
 
-        try {
-            Artisan::call("make:migration create_{$table}_table");
-            $this->comment("Create migration create_{$table}_table");
-        } catch (\Throwable $th) {
-            return $this;
+        if ($this->force || !$exist) {
+            try {
+                Artisan::call("make:migration create_{$table}_table");
+                $this->comment("Create migration create_{$table}_table");
+            } catch (\Throwable $th) {
+                return $this;
+            }
         }
 
         return $this;
@@ -516,11 +521,25 @@ class Repository extends Command
     {
         $permissionModel = new (config('permission.models.permission', \Spatie\Permission\Models\Permission::class));
 
+        if (blank($permissionModel))
+            return $this;
+
+        // Check is a string of name model
+        if (is_string($permissionModel))
+            $permissionModel =  new $permissionModel;
+
+        // Check model is exists
+        if (!is_object($permissionModel))
+            return $this;
+
+        // Reset cached roles and permissions
+        if (class_exists(\Spatie\Permission\PermissionRegistrar::class))
+            app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
         $snake_name = Str::snake($name);
 
         $permissions = [
             "{$snake_name}_list",
-            "{$snake_name}_show",
             "{$snake_name}_create",
             "{$snake_name}_update",
             "{$snake_name}_delete",
