@@ -30,4 +30,28 @@ trait HasAnyRolePermissions
 
         return false;
     }
+
+    /**
+     * has All Role or Permissions
+     * @param string|array|null $role_or_permission
+     * @param array|string|null $guard
+     * @return bool
+     */
+    public function hasAllRolePermissions(string|array|null $role_or_permission = null, array|string|null $guard = null)
+    {
+        if (blank($role_or_permission))
+            return false;
+
+        $guard = $guard ?: config('auth.defaults.guard');
+        $guard = Arr::wrap($guard);
+
+        $role_or_permission = Arr::wrap($role_or_permission);
+
+        foreach ($role_or_permission as $item) {
+            if (!$this->hasAnyRolePermissions($item, $guard))
+                return false;
+        }
+
+        return true;
+    }
 }

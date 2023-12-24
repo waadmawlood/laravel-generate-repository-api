@@ -410,6 +410,36 @@ class AuthServiceProvider extends ServiceProvider
 ❤️ ```php artisan optimize ``` &nbsp; to clear cache of config
 
 
+Example Policy for `HasAnyRolePermissions`
+
+```php
+    /**
+     * Determine whether the user can create models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool 
+     */
+    public function create(User $user)
+    {
+        return $user->hasAnyRolePermissions(['Admin', 'category_create'], ['api']); // "Admin" Or "category_create"
+    }
+
+    // **************************************************************
+
+    /**
+     * Determine whether the user can create models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool 
+     */
+    public function create(User $user)
+    {
+        return $user->hasAllRolePermissions(['Admin', 'category_create'], ['api']); // "Admin" And "category_create"
+    }
+
+```
+
+
 \
 &nbsp;
 \
