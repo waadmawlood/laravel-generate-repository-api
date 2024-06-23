@@ -114,9 +114,10 @@ abstract class BaseRepository implements BaseInterface
      * @param Model|int|string $object
      * @param bool|null $trash
      * @param bool|null $enableQueryBuilder
+     * @param bool|null $withoutGlobalScopes
      * @return Model|null
      */
-    public function showObject(Model|int|string $object, bool|null $trash = false, bool|null $enableQueryBuilder = true)
+    public function showObject(Model|int|string $object, bool|null $trash = false, bool|null $enableQueryBuilder = true, bool|null $withoutGlobalScopes = false)
     {
         if (blank($object))
             return null;
@@ -131,7 +132,7 @@ abstract class BaseRepository implements BaseInterface
         }
 
         if(is_int($object) || is_string($object)){
-            return $result->find($object);
+            return $result->when($withoutGlobalScopes, fn($query) => $query->withoutGlobalScopes())->find($object);
         }
 
         $primaryKey =  $object->getKeyName();
@@ -146,7 +147,7 @@ abstract class BaseRepository implements BaseInterface
             $result = $result->except($attributes);
         }
 
-        return $result->find($object->$primaryKey);
+        return $result->when($withoutGlobalScopes, fn($query) => $query->withoutGlobalScopes())->find($object->$primaryKey);
     }
 
 
