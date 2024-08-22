@@ -65,6 +65,7 @@ abstract class BaseRepository implements BaseInterface
 
         if ($request->has('search') && filled($request->search)) {
             $strict = ! $request->strict;
+            $this->result = $this->result->withoutGlobalScopes();
             $this->result = $this->result->search($request->search, null, true, $strict);
         }
 
